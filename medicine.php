@@ -260,11 +260,12 @@ $meds_name = $med_row['med_name'];
 $meds_type = $med_row['type'];
 $meds_quant = $med_row['quantity'];
 $meds_price = $med_row['price'];
-$meds_edit_modal= $meds_name.''.$meds_type;
-$meds_delete_modal= $meds_name.''.$meds_id;
 
 $med_admin_query = mysqli_query($con,"SELECT * FROM members WHERE id='$meds_admin_id' ") or die("Could not select admin");
 $meds_admin = mysqli_fetch_array($med_admin_query);
+
+$meds_edit_modal= $meds_admin['username'].''.$meds_type;
+$meds_delete_modal= $meds_admin['username'].''.$meds_id;
 
 echo '<tr> 
                   <td>'.$meds_id.'</td> 
