@@ -240,7 +240,7 @@ Please fill your account details to complete your registration. <a style="cursor
           <th scope="col" style="cursor:pointer">Type</th>
           <th scope="col" style="cursor:pointer">Quantity</th>
           <th scope="col" style="cursor:pointer">Price <small><i>(Per quantity)</i></small></th>
-          <th scope="col" style="cursor:pointer">Last Edited by</th>
+          <th scope="col" style="cursor:pointer">Added by</th>
           <th scope="col" style="cursor:pointer">Change</th>
         </tr>
       </thead>
@@ -264,7 +264,7 @@ $meds_price = $med_row['price'];
 $med_admin_query = mysqli_query($con,"SELECT * FROM members WHERE id='$meds_admin_id' ") or die("Could not select admin");
 $meds_admin = mysqli_fetch_array($med_admin_query);
 
-$meds_edit_modal= $meds_admin['username'].''.$meds_type;
+$meds_edit_modal= $meds_admin['username'].''.$meds_quant;
 $meds_delete_modal= $meds_admin['username'].''.$meds_id;
 
 echo '<tr> 
@@ -313,6 +313,7 @@ echo '<tr>
                       <label for="exampleInputPassword1" class="form-label">Price of single quantity <small><i>(in Ruppees)</i></small></label>
                       <input type="text" class="form-control" name="med_price" value="'.$meds_price.'" required>
                     </div>
+                    
                     <input type="hidden" name="med_id" value="'.$meds_id.'">
             
                   </div>
