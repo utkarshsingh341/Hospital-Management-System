@@ -264,8 +264,8 @@ $meds_price = $med_row['price'];
 $med_admin_query = mysqli_query($con,"SELECT * FROM members WHERE id='$meds_admin_id' ") or die("Could not select admin");
 $meds_admin = mysqli_fetch_array($med_admin_query);
 
-$meds_edit_modal= $meds_admin['username'].''.$meds_quant;
-$meds_delete_modal= $meds_admin['username'].''.$meds_id;
+$meds_edit_modal= "edit_".''.$meds_id;
+$meds_delete_modal= "delete_".''.$meds_id;
 
 echo '<tr> 
                   <td>'.$meds_id.'</td> 
@@ -314,7 +314,8 @@ echo '<tr>
                       <input type="text" class="form-control" name="med_price" value="'.$meds_price.'" required>
                     </div>
                     
-                    <input type="hidden" name="med_id" value="'.$meds_id.'">
+                    <input type="hidden" name="med_id" value="'.$meds_id.'">                    
+
             
                   </div>
                   <div class="modal-footer">
