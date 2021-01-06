@@ -54,6 +54,22 @@ if(isset($_POST['gender']))
 }
 
 ?>
+<?php
+
+
+if(isset($_POST['app_doc']))
+{
+
+    $app_doc = $_POST['app_doc'];
+    $app_date = $_POST['app_date'];
+    $app_rem = $_POST['app_rem'];
+
+    $app_query = mysqli_query($con, "INSERT INTO appointment (patient_id, doctor_id, approved, datetime, remarks) VALUES ('$session_id', '$app_doc', '0', '$app_date', '$app_rem')") or die("Could not book appointment");
+    header("Location: patient_appointment.php");
+
+}
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -116,6 +132,71 @@ if(isset($_POST['gender']))
     </div>
   </div>
 </div>
+
+<!-- Appointment Book Modal -->
+<div class="modal fade" id="appointmentBookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Medicine Entry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      <form action="patient_appointment.php" method="post">
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Select your Doctor for the appointment</label>
+          <select class="form-select" aria-label="Default select example" name="app_doc" required>
+            <optgroup label="Please select the Doctor">
+
+            <?php
+
+
+$app_query = mysqli_query($con,"SELECT * FROM doctor ORDER BY id") or die("Could not select Doctor Table");
+
+while($app_row = mysqli_fetch_array($app_query))
+{
+
+    $app_doc_id = $app_row['user_id'];
+    $app_doc_spec = $app_row['specification'];
+
+
+    $app_doc_query = mysqli_query($con,"SELECT * FROM members WHERE id='$app_doc_id' ") or die("Could not select admin");
+    $app_doc_array = mysqli_fetch_array($app_doc_query);
+
+    echo '
+    
+        <option value="'.$app_doc_id.'">'.$app_doc_array['name'].' ['.$app_doc_spec.']</option>
+
+    ';
+
+
+}
+
+            ?>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Select the Date & Time for appointment</label>
+          <input type="datetime-local" class="form-select" name="app_date" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Any additional remarks you may want to leave</label>
+          <textarea class="form-control" name="app_rem" required>Remarks...</textarea>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Book Appointment!" />
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
   <?php
 
 if($owner == true)
@@ -133,9 +214,9 @@ if($owner == true)
 
 <div class="nav-scroller bg-white shadow-sm">
   <nav class="nav nav-underline nav2" aria-label="Secondary navigation">
-    <a class="nav-link active" href="patient.php">Dashboard</a>
+    <a class="nav-link " href="patient.php">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
-    <a class="nav-link" href="patient_appointment.php">Appointments Section</a>
+    <a class="nav-link active" href="patient_appointment.php">Appointments Section</a>
   </nav>
 </div>
 
@@ -173,37 +254,62 @@ Please fill your account details to complete your registration. <a style="cursor
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Recent updates</h6>
-    <div class="d-flex text-muted pt-3">
-      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+    <h6 class="border-bottom pb-2 mb-0">Appointments</h6>
+    <div class="d-flex text-muted pt-0">
+      
+    <table class="table table-striped m-3">
+        <thead>
+            <tr>
+            <th scope="col">Appt. ID</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date & Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE patient_id='$session_id' ORDER BY id DESC") or die("Could not select Appointment Table");
+                while($apt_row = mysqli_fetch_array($apt_query))
+                {
+                    $apt_id = $apt_row['id'];
+                    $apt_doc_id = $apt_row['doctor_id'];
+                    $apt_admin_id = $apt_row['admin_id'];
+                    $apt_approved = $apt_row['approved'];
+                    $apt_date = $apt_row['datetime'];
 
-      <p class="pb-3 mb-0 small lh-sm border-bottom">
-        <strong class="d-block text-gray-dark">@username</strong>
-        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-      </p>
+                    $apt_doc_query = mysqli_query($con,"SELECT * FROM members WHERE id='$apt_doc_id' ") or die("Could not select doctor - member");
+                    $apt_doc_array = mysqli_fetch_array($apt_doc_query);
+
+                    $apt_docspec_query = mysqli_query($con,"SELECT * FROM doctor WHERE user_id='$apt_doc_id' ") or die("Could not select doctor - spec ");
+                    $apt_docspec_array = mysqli_fetch_array($apt_docspec_query);
+
+                    echo '<tr>
+                        <td scope="row">'.$apt_id.'</td>
+                        <td>'.$apt_doc_array['name'].' ['.$apt_docspec_array['specification'].']</td>
+                    
+                    ';
+
+                    if($apt_approved == '0')
+                    {
+                        echo '<td>Yet to be reviewed.</td>';
+                    }
+
+                    echo '
+                    <td>'.$apt_date.'</td>
+                    </tr>';
+
+                }
+            ?>
+        </tbody>
+        </table>
+
     </div>
     <small class="d-block text-end mt-3">
-      <a href="#">All updates</a>
+      <a style="cursor:pointer;" class="alert-link px-3"  data-bs-toggle="modal" data-bs-target="#appointmentBookModal"> + book a new appointment</a>
     </small>
   </div>
 
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
-    <div class="d-flex text-muted pt-3">
-      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-
-      <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
-        <div class="d-flex justify-content-between">
-          <strong class="text-gray-dark">Full Name</strong>
-          <a href="#">Follow</a>
-        </div>
-        <span class="d-block">@username</span>
-      </div>
-    </div>
-    <small class="d-block text-end mt-3">
-      <a href="#">All suggestions</a>
-    </small>
-  </div>
+ 
 </main>
 
 <?php

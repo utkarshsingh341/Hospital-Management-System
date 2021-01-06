@@ -109,6 +109,13 @@ body {
 .bg-purple {
   background-color: #5252ce;
 }
+.bg-green {
+  background-color: #27ae60;
+}
+
+.bg-red {
+  background-color: #c0392b;
+}
 .nav2 {
   font-size: 14px;
   color: #555;

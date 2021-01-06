@@ -131,12 +131,11 @@ if($owner == true)
     <a class="nav-link" href="#">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
     <a class="nav-link" href="#">View Appointments</a>
-    <a class="nav-link" href="#">Start an appointment</a>
   </nav>
 </div>
 
 <main class="container">
-  <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
+  <div class="d-flex align-items-center p-3 my-3 text-white bg-green rounded shadow-sm">
     <img class="me-3" src="img\icons8-doctor-female-64.png" alt="" width="38" height="38">
     <div class="lh-1">
       <h1 class="h6 mb-0 text-white lh-1">Doctor's Dashboard</h1>

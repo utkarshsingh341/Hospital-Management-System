@@ -190,7 +190,7 @@ if($owner == true)
     <a class="nav-link" href="admin.php">Dashboard</a>
     <a class="nav-link" style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
     <a class="nav-link active" href="medicine.php">Medicine Inventory</a>
-    <a class="nav-link" href="#">Appointment List</a>
+    <a class="nav-link" href="admin_appointment.php">Appointment List</a>
   </nav>
 </div>
 
