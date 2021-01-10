@@ -217,6 +217,7 @@ if($owner == true)
     <a class="nav-link " href="patient.php">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
     <a class="nav-link active" href="patient_appointment.php">Appointments Section</a>
+    <a class="nav-link" href="med_history_add.php">Medical History</a>
   </nav>
 </div>
 
@@ -282,6 +283,8 @@ Please fill your account details to complete your registration. <a style="cursor
 
                     $apt_docspec_query = mysqli_query($con,"SELECT * FROM doctor WHERE user_id='$apt_doc_id' ") or die("Could not select doctor - spec ");
                     $apt_docspec_array = mysqli_fetch_array($apt_docspec_query);
+                    $apt_adm_query = mysqli_query($con,"SELECT * FROM members WHERE id='$apt_admin_id' ") or die("Could not select admin");
+                    $apt_adm_array = mysqli_fetch_array($apt_adm_query);
 
                     echo '<tr>
                         <td scope="row">'.$apt_id.'</td>
@@ -292,6 +295,10 @@ Please fill your account details to complete your registration. <a style="cursor
                     if($apt_approved == '0')
                     {
                         echo '<td>Yet to be reviewed.</td>';
+                    }else if($apt_approved == '1'){
+                        echo '<td>Approved by '.$apt_adm_array['name'].' (Admin)</td>';
+                    }else if($apt_approved == '2'){
+                      echo '<td>Rejected by '.$apt_adm_array['name'].' (Admin)</td>';
                     }
 
                     echo '

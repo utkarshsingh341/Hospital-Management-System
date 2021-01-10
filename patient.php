@@ -136,6 +136,7 @@ if($owner == true)
     <a class="nav-link active" href="patient.php">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
     <a class="nav-link" href="patient_appointment.php">Appointments Section</a>
+    <a class="nav-link" href="med_history_add.php">Medical History</a>
   </nav>
 </div>
 

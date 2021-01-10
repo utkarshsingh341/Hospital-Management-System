@@ -128,9 +128,9 @@ if($owner == true)
 
 <div class="nav-scroller bg-white shadow-sm">
   <nav class="nav nav-underline nav2" aria-label="Secondary navigation">
-    <a class="nav-link" href="#">Dashboard</a>
+    <a class="nav-link active" href="#">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
-    <a class="nav-link" href="#">View Appointments</a>
+    <a class="nav-link" href="doctor_appointment.php">View Appointments</a>
   </nav>
 </div>
 

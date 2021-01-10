@@ -276,6 +276,7 @@ Please fill your account details to complete your registration. <a style="cursor
     </div>
   </div>
 
+
 </main>
 
 <?php
