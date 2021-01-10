@@ -178,9 +178,10 @@ if($owner == true)
             <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title">Deep Learning Pnuemonia Tool</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link">Card link</a>
+                    <h6 class="card-subtitle mb-2 text-muted">Deep Leaning Tool to predict Pnuemonia disease.</h6>
+                    <p class="card-text">Deep Learning Tool to predict pneumonia disease in a patient through patterns observed in lung X-rays using transfer learning
+</p>
+                    <a href="pnue.php" target="_blank" class="card-link">Go to Pnuemonia Checker</a>
                 </div>
             </div>
         </div>
