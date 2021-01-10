@@ -207,7 +207,7 @@ Please fill your account details to complete your registration. <a style="cursor
 
                     echo '<tr>
                         <td scope="row">'.$apt_id.'</td>
-                        <td>'.$apt_pat_array['name'].'</td>
+                        <td><a href="profile.php?id='.$apt_pat_id.'" target="_blank"> '.$apt_pat_array['name'].' </a></td>
                         <td>'.$apt_date.'</td>
                         <td>'.$apt_rem.'</td>
                         <td>Approved by '.$apt_adm_array['name'].'</td>
