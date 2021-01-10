@@ -131,6 +131,7 @@ if($owner == true)
     <a class="nav-link" href="doctor.php">Dashboard</a>
     <a class="nav-link"  style="cursor:pointer;" class="alert-link"  data-bs-toggle="modal" data-bs-target="#exampleModal">Change Account Details</a>
     <a class="nav-link active" href="doctor_appointment.php">View Appointments</a>
+    <a class="nav-link" href="appointment.php">Start an Appointment</a>
   </nav>
 </div>
 
@@ -179,12 +180,11 @@ Please fill your account details to complete your registration. <a style="cursor
             <th scope="col" style="cursor:pointer">Date & Time</th>
             <th scope="col" style="cursor:pointer">Remarks</th>
             <th scope="col" style="cursor:pointer">Status</th>
-            <th scope="col" style="cursor:pointer">Action</th>
             </tr>
         </thead>
         <tbody>
             <?php
-                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE approved='1' ORDER BY id") or die("Could not select Appointment Table");
+                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE approved='1' AND completed='0' ORDER BY id") or die("Could not select Appointment Table");
                 while($apt_row = mysqli_fetch_array($apt_query))
                 {
                     $apt_id = $apt_row['id'];
@@ -211,7 +211,6 @@ Please fill your account details to complete your registration. <a style="cursor
                         <td>'.$apt_date.'</td>
                         <td>'.$apt_rem.'</td>
                         <td>Approved by '.$apt_adm_array['name'].'</td>
-                        <td><a href="">Start Appt.</a></td>
                         </tr>                        
                         ';
 

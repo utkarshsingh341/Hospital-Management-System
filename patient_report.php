@@ -254,67 +254,6 @@ Please fill your account details to complete your registration. <a style="cursor
 
 
 
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-bottom pb-2 mb-0">Appointments</h6>
-    <div class="d-flex text-muted pt-0">
-      
-    <table class="table table-striped m-3">
-        <thead>
-            <tr>
-            <th scope="col">Appt. ID</th>
-            <th scope="col">Doctor</th>
-            <th scope="col">Status</th>
-            <th scope="col">Date & Time</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE patient_id='$session_id' AND completed='0' ORDER BY id DESC") or die("Could not select Appointment Table");
-                while($apt_row = mysqli_fetch_array($apt_query))
-                {
-                    $apt_id = $apt_row['id'];
-                    $apt_doc_id = $apt_row['doctor_id'];
-                    $apt_admin_id = $apt_row['admin_id'];
-                    $apt_approved = $apt_row['approved'];
-                    $apt_date = $apt_row['datetime'];
-
-                    $apt_doc_query = mysqli_query($con,"SELECT * FROM members WHERE id='$apt_doc_id' ") or die("Could not select doctor - member");
-                    $apt_doc_array = mysqli_fetch_array($apt_doc_query);
-
-                    $apt_docspec_query = mysqli_query($con,"SELECT * FROM doctor WHERE user_id='$apt_doc_id' ") or die("Could not select doctor - spec ");
-                    $apt_docspec_array = mysqli_fetch_array($apt_docspec_query);
-                    $apt_adm_query = mysqli_query($con,"SELECT * FROM members WHERE id='$apt_admin_id' ") or die("Could not select admin");
-                    $apt_adm_array = mysqli_fetch_array($apt_adm_query);
-
-                    echo '<tr>
-                        <td scope="row">'.$apt_id.'</td>
-                        <td>'.$apt_doc_array['name'].' ['.$apt_docspec_array['specification'].']</td>
-                    
-                    ';
-
-                    if($apt_approved == '0')
-                    {
-                        echo '<td>Yet to be reviewed.</td>';
-                    }else if($apt_approved == '1'){
-                        echo '<td>Approved by '.$apt_adm_array['name'].' (Admin)</td>';
-                    }else if($apt_approved == '2'){
-                      echo '<td>Rejected by '.$apt_adm_array['name'].' (Admin)</td>';
-                    }
-
-                    echo '
-                    <td>'.$apt_date.'</td>
-                    </tr>';
-
-                }
-            ?>
-        </tbody>
-        </table>
-
-    </div>
-    <small class="d-block text-end mt-3">
-      <a style="cursor:pointer;" class="alert-link px-3"  data-bs-toggle="modal" data-bs-target="#appointmentBookModal"> + book a new appointment</a>
-    </small>
-  </div>
 
 
   <div class="my-3 p-3 bg-white rounded shadow-sm">
@@ -348,8 +287,6 @@ Please fill your account details to complete your registration. <a style="cursor
                     $apt_docspec_array = mysqli_fetch_array($apt_docspec_query);
                     $apt_adm_query = mysqli_query($con,"SELECT * FROM members WHERE id='$apt_admin_id' ") or die("Could not select admin");
                     $apt_adm_array = mysqli_fetch_array($apt_adm_query);
-                    $report_query = mysqli_query($con,"SELECT * FROM report WHERE appt_id='$apt_id' ") or die("Could not select doctor - spec ");
-                    $report_array = mysqli_fetch_array($report_query);
 
                     $apt_modal =  "report_".''.$apt_id;
 
@@ -361,29 +298,29 @@ Please fill your account details to complete your registration. <a style="cursor
                         </tr>
                     
                     
-                    <div class="modal fade" id="'.$apt_modal.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Report for Appointment ID: '.$apt_id.'</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <b>Doctor:</b> '.$apt_doc_array['name'].' ['.$apt_docspec_array['specification'].']<br>
-                            <b>Date and Time:</b> '.$apt_date.'<br>
-                            <br>
-                            <b>Remarks:</b><br> '.$report_array['remarks'].'<br>
-                            <br>
-                            <b>Medicines Assigned:</b> '.$report_array['medicine'].'<br>
-                            <b>Future Visit Recommended:</b> '.$report_array['visit'].'<br>
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="modal fade" id="'.$apt_modal.'" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Report for Appointment ID: '.$apt_id.'</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <b>Doctor:</b> '.$apt_doc_array['name'].' ['.$apt_docspec_array['specification'].']<br>
+                              <b>Date and Time:</b> '.$apt_date.'<br>
+                              <br>
+                              <b>Remarks:</b><br> '.$report_array['remarks'].'<br>
+                              <br>
+                              <b>Medicines Assigned:</b> '.$report_array['medicine'].'<br>
+                              <b>Future Visit Recommended:</b> '.$report_array['visit'].'<br>
+  
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
                     
                     
                     

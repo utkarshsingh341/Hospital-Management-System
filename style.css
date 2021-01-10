@@ -124,3 +124,17 @@ body {
   display: block;
   padding: 0.5rem 0.7rem;
 }
+.label-radio {
+  border: 1px solid #a1a1a1;
+  padding: 10px;
+  margin: 5px 0px;
+  border-radius: 4px;
+}
+.label-radio label {
+  padding: 5px 2.5px 12.5px 15px;
+  cursor: pointer;
+}
+.report-form {
+  padding-left: 20px;
+  width: 700px;
+}
