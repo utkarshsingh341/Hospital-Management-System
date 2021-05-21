@@ -184,7 +184,7 @@ Please fill your account details to complete your registration. <a style="cursor
         </thead>
         <tbody>
             <?php
-                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE approved='1' AND completed='0' ORDER BY id") or die("Could not select Appointment Table");
+                $apt_query = mysqli_query($con,"SELECT * FROM appointment WHERE approved='1' AND completed='0' AND doctor_id='$session_id' ORDER BY id") or die("Could not select Appointment Table");
                 while($apt_row = mysqli_fetch_array($apt_query))
                 {
                     $apt_id = $apt_row['id'];

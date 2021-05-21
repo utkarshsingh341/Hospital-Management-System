@@ -105,7 +105,7 @@ if($owner == true)
                 if($result->getInsertedCount()>0) {
                     header("Location:run_pne.php");
                 } else {
-                    echo "Failed to create Article";
+                    echo "Failed to create entry";
                 }
 
         }
@@ -114,8 +114,10 @@ if($owner == true)
 
     <form style="width:90%; margin:10px auto;" method="post" action="" enctype="multipart/form-data">
         <div class="mb-3 mt-3">
+          <p>Deep Learning Tool to predict pneumonia disease in a patient through patterns observed in lung X-rays using transfer learning</p>
           <label for="exampleInputEmail1" class="form-label fs-6">Upload the lung X-ray image:-</label>
           <input id="file" name="file"  class="form-control" type="file" id="formFile">
+
         </div>
         <button type="submit" id="create" name="create" class="btn btn-primary mt-3">Submit your entry!</button>
     </form>
