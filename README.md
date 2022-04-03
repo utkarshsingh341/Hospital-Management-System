@@ -1,7 +1,7 @@
 # Hospital-Management-System
 Computerizing the Front Office Management of Hospital into a software which is user friendly, simple, fast, and cost-effective
 
-###Description
+### Description
 Hospitals currently use a manual system for the management and maintenance of critical
 information. The current system requires numerous paper forms, with data stores spread
 throughout the hospital management infrastructure. Often information (on forms) is incomplete
